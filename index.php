@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAEP - Ferramentas</title>
 </head>
+<link rel="stylesheet" href="CSS/formularios.css">
 <body>
     <?php
     session_start();

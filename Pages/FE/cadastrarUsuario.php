@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ferramentas SAEP</title>
+    <link rel="stylesheet" href="../../CSS/formularios.css">
 </head>
 <?php
 session_start();
@@ -13,6 +14,8 @@ if($_SESSION['usuario_email'] !== 'adm@saep.com'){
 }
 ?>
 <body>
+
+<a href="interfaceProdutos.php">Voltar</a>
     <h1>Cadastro de Funcionário</h1>
     <form action="../BE/cadastroUsuario.php" method="POST">
         <label for="Nome">Nome: </label><br>

@@ -24,6 +24,10 @@ class ProdutoController{
     public function excluirProduto($id){
         return $this->produtoModel->excluirProduto($id);
     }
+
+    public function exibirInformacoesProduto($id){
+        return $this->produtoModel->exibirInformacoesProduto($id);
+    }
 }
 
 ?>

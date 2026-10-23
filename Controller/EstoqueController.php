@@ -17,12 +17,12 @@ class EstoqueController{
         return $this->estoqueModel->listarHistoricoRetiradas();
     }
 
-    public function registrarMovimentacao($id_usuario, $id_produto, $tipo_movimento, $movimento, $data_movimento){
-        return $this->estoqueModel->registrarMovimentacao($id_usuario, $id_produto, $tipo_movimento, $movimento, $data_movimento);
+    public function registrarMovimentacao($id_usuario, $id_produto, $tipo_movimento, $movimento){
+        return $this->estoqueModel->registrarMovimentacao($id_usuario, $id_produto, $tipo_movimento, $movimento);
     }
 
-    public function movimentarProduto($id_produto, $tipo_movimento, $movimento, $quantidade){
-    return $this->estoqueModel->movimentarProduto($id_produto, $tipo_movimento, $movimento, $quantidade);
+    public function movimentarProduto($id_produto, $tipo_movimento, $movimento){
+    return $this->estoqueModel->movimentarProduto($id_produto, $tipo_movimento, $movimento);
     }
 
 

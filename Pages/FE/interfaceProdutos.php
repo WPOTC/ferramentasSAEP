@@ -25,12 +25,19 @@ $produtos = $produtoController->listarProdutos();
 $historicoEntrada = $estoqueController->listarHistoricoEntradas();
 $historicoRetirada = $estoqueController->listarHistoricoRetiradas();
 
+
 ?>
+
 <body>
 
 <header>
     <h1>Seja bem vindo(a), <?php echo $_SESSION['usuario_nome']; ?></h1>
     <a href="../BE/logoutUsuario.php">Logout</a>
+    <search>
+      <form method="GET">
+        <input name="search" type="text"> <button type="submit">Pesquisar</button>
+      </form>
+    </search>
 </header>
 
 <?php
@@ -42,6 +49,44 @@ if($_SESSION['usuario_email'] == 'adm@saep.com'){
 ?>
 <br>
 
+<?php
+
+if(isset($_GET['search'])){
+$pesquisa = $_GET['search'];
+$sql = "SELECT * FROM produto WHERE nome LIKE '%$pesquisa%' OR descricao LIKE '%$pesquisa%' OR quantidade LIKE '%$pesquisa%'";
+$stmt = $pdo->prepare($sql);
+$stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt->execute();
+
+?>
+
+ <section>
+ <h1>Resultado(s):</h1>
+
+ <?php
+    if($stmt->rowCount() == 0){
+        echo "<h2>Nenhum resultado encontrado para '" . $pesquisa . "'.</h2>";
+    }else{
+        echo "<div class='pesquisas'>";
+        while($resultados = $stmt->fetchAll(PDO::FETCH_ASSOC)){
+            foreach($resultados as $resultado){
+                echo "<div class='resultado'>";
+                echo "<p><h3>Nome:</h3> " . $resultado['nome'] . "</p>";
+                echo "<p><h3>Descrição:</h3> " . $resultado['descricao'] . "</p>";
+                echo "<p><h3>Quantidade:</h3> " . $resultado['quantidade'] . "</p>";
+                echo "</div>";
+            }
+        }
+        echo "</div>";
+    }
+    
+    ?>
+</section>
+
+<?php
+}
+?>
+
 <table>
   <tr>
     <th>Nome</th>
@@ -49,6 +94,7 @@ if($_SESSION['usuario_email'] == 'adm@saep.com'){
     <th>Estoque (Quantia)</th>
     <th>Status</th>
     <th>Registrar Movimentação</th>
+    <th>Editar Produto</th>
     <th>Deletar Produto</th>
   </tr>
 
@@ -65,8 +111,9 @@ if($_SESSION['usuario_email'] == 'adm@saep.com'){
     }elseif($produto['quantidade']>$produto['quantia_minima']){
         echo "Estoque normal.";
     } ?></td>
-    <td><img src="../../IMGs/botaoMovimentacao.webp" alt="botão de movimentação" href="movimentarProduto.php?id=<?php echo $produto['id']; ?>"></td>
-    <td><a href="deletarProduto.php?id=<?php echo $produto['id']; ?>"><img src="../../IMGs/botaoMenos.png" alt="botão de delete"></a></td>
+    <td><a href="movimentarProduto.php?id=<?php echo $produto['id']; ?>"><img src="../../IMGs/botaoMovimentacao.webp" alt="botão de movimentação"></a></td>
+    <td><a href="editarProduto.php?id=<?php echo $produto['id']; ?>"><img src="../../IMGs/botaoMovimentacao.webp" alt="botão de editar"></a></td>
+    <td><a href="../BE/deleteProduto.php?id=<?php echo $produto['id']; ?>"  onclick="return confirm('Tem certeza?')"><img src="../../IMGs/botaoMovimentacao.webp" alt="botão de delete"></a></td>
   </tr>
   <?php
 }

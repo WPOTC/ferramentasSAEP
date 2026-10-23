@@ -35,11 +35,26 @@ class ProdutoModel {
     }
 
     public function excluirProduto($id){
+        $sqlEstoque = "DELETE FROM estoque where id_produto = :id";
+        $stmtEstoque = $this->pdo->prepare($sqlEstoque);
+        $stmtEstoque->bindParam(':id', $id);
+        $stmtEstoque->execute();
+
+
         $sql = "DELETE FROM produto WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->bindParam(':id', $id);
-        return $stmt->execute();
+        $stmt->execute();
     }
+
+    public function exibirInformacoesProduto($id){
+        $sql = "SELECT * FROM produto WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 
 }
 

@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ferramentas SAEP</title>
+    <link rel="stylesheet" href="../../CSS/formularios.css">
 </head>
 
 <?php
 
 session_start();
 if(!isset($_SESSION['usuario_id'])){
-    echo "<script>alert('Você precisa estar logado!');</script>";
-    echo "<script></script>";
+    echo "<script>alert('Você precisa estar logado para acessar essa página!');</script>";
+    echo "<script>window.location.href='../../index.php';</script>";
 }
 
 ?>
 
 <body>
+
+<a href="interfaceProdutos.php">Voltar</a>
 
 <h1>Cadastro de Produto</h1>
 <form action="../BE/cadastroProduto.php" method="POST">
